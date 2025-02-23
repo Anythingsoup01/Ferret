@@ -4,6 +4,8 @@ project "FerretApp"
 
     includedirs
     {
+        "$(ROOTDIR)/vendors/GLFW/include",
+
         "$(ROOTDIR)/Ferret/src",
     }
 

@@ -1,6 +1,7 @@
 add_executable(FerretApp src/FerretApp.cpp ${SRCS})
 
 target_include_directories(FerretApp PRIVATE
+    ${CMAKE_SOURCE_DIR}/vendors/GLFW/include
     ${CMAKE_SOURCE_DIR}/Ferret/src
 )
 

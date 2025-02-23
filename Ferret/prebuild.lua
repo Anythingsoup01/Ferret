@@ -5,4 +5,11 @@ project "Ferret"
     includedirs
     {
         "src",
+
+        "$(ROOTDIR)/vendors/GLFW/include",
+    }
+
+    links
+    {
+        "glfw",
     }
