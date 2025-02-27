@@ -62,6 +62,6 @@ namespace Ferret
         std::function<void()> m_MenubarCallback;
     };
 
-    Application* CreateAppliction(int argc, char** argv);
+    Application* CreateApplication(int argc, char** argv);
 
 }
