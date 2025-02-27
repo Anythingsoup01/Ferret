@@ -1,7 +1,7 @@
 #pragma once
 
 
-extern Ferret::Application* Ferret::CreateAppliction(int argc, char** argv);
+extern Ferret::Application* Ferret::CreateApplication(int argc, char** argv);
 bool g_ApplicationRunning = true;
 
 namespace Ferret
@@ -10,7 +10,7 @@ namespace Ferret
     {
         while (g_ApplicationRunning)
         {
-            Ferret::Application* app = Ferret::CreateAppliction(argc, argv);
+            Ferret::Application* app = Ferret::CreateApplication(argc, argv);
             app->Run();
             delete app;
         }
