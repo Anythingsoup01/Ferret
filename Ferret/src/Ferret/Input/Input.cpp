@@ -1,6 +1,6 @@
 #include "Input.h"
 
-#include "Core/Application.h"
+#include "Ferret/Core/Application.h"
 
 #include <GLFW/glfw3.h>
 

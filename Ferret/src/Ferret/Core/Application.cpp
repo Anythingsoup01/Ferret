@@ -3,7 +3,9 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 
-#include <glad/glad.h>
+#include "Ferret/Renderer/RenderCommand.h"
+#include "Ferret/ImGui/FerretGui.h"
+
 #include <GLFW/glfw3.h>
 
 #include "Utils.h"
@@ -40,35 +42,10 @@ namespace Ferret
         m_WindowHandle = glfwCreateWindow(m_Specification.Width, m_Specification.Height, m_Specification.Title.c_str(), NULL, NULL);
         glfwMakeContextCurrent(m_WindowHandle);
 
-        if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-        {
-            Utils::PrintError("Could not load GLAD!");
-            return;
-        }
+        RenderCommand::Init();
 
+        FerretGui::Init();
 
-        IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
-        ImGuiIO& io = ImGui::GetIO(); (void)io;
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-
-
-        // ImGui Style
-        ImGui::StyleColorsDark();
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-        io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-
-        ImGuiStyle& style = ImGui::GetStyle();
-        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        {
-            style.WindowRounding = 0.0f;
-            style.Colors[ImGuiCol_WindowBg].w = 1.0f;
-        }
-
-        ImGui_ImplGlfw_InitForOpenGL(m_WindowHandle, true);
-        ImGui_ImplOpenGL3_Init("#version 430");
     }
 
     void Application::Shutdown()
@@ -77,9 +54,7 @@ namespace Ferret
             layer->OnDetach();
         m_LayerStack.clear();
 
-        ImGui_ImplOpenGL3_Shutdown();
-        ImGui_ImplGlfw_Shutdown();
-        ImGui::DestroyContext();
+        FerretGui::Shutdown();
 
         glfwDestroyWindow(m_WindowHandle);
         glfwTerminate();
@@ -97,14 +72,14 @@ namespace Ferret
         {
             glfwPollEvents();
             glfwSwapBuffers(m_WindowHandle);
-            glClear(GL_COLOR_BUFFER_BIT);
+
+            RenderCommand::Clear(glm::vec4(0,0,0,1));
 
             for (auto& layer : m_LayerStack)
                 layer->OnUpdate(m_TimeStep);
 
-            ImGui_ImplGlfw_NewFrame();
-            ImGui_ImplOpenGL3_NewFrame();
-            ImGui::NewFrame();
+            FerretGui::Update();
+
             static bool dockspaceOpen = true;
             static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
@@ -151,26 +126,11 @@ namespace Ferret
                         ImGui::EndMenuBar();
                     }
                 }
-
-
-
             }
             ImGui::End();
 
-
-
-
             // Rendering
-            ImGui::Render();
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-            if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-            {
-                GLFWwindow* backup_current_context = glfwGetCurrentContext();
-                ImGui::UpdatePlatformWindows();
-                ImGui::RenderPlatformWindowsDefault();
-                glfwMakeContextCurrent(backup_current_context);
-            }
+            FerretGui::Render();
 
         }
 

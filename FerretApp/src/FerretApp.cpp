@@ -1,5 +1,5 @@
-#include "Core/Application.h"
-#include "Core/Entrypoint.h"
+#include "Ferret/Core/Application.h"
+#include "Ferret/Core/Entrypoint.h"
 #include "FerretLayer.h"
 #include "imgui.h"
 
