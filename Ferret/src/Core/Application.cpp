@@ -15,7 +15,7 @@ extern bool g_ApplicationRunning;
 
 namespace Ferret
 {
-    static Application* s_Instance;
+    Application* Application::s_Instance = nullptr;
 
     Application::Application(const ApplicationSpecifications& specification)
         :m_Specification(specification)
@@ -28,11 +28,6 @@ namespace Ferret
     {
         Shutdown();
         s_Instance = nullptr;
-    }
-
-    Application& Application::Get()
-    {
-        return *s_Instance;
     }
 
     void Application::Init()
@@ -189,5 +184,24 @@ namespace Ferret
     float Application::GetTime()
     {
         return (float)glfwGetTime();
+    }
+
+    void Application::SubmitToMainThread(const std::function<void()>& function)
+    {
+        m_MainThreadQueue.emplace_back(function);
+    }
+
+    void Application::ExecuteMainThreadQueue()
+    {
+        std::vector<std::function<void()>> copy;
+        {
+            std::scoped_lock<std::mutex> lock(m_MainThreadQueueMutex);
+            copy = m_MainThreadQueue;
+            m_MainThreadQueue.clear();
+        }
+
+
+        for (auto& function : copy)
+            function();
     }
 }

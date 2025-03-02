@@ -6,8 +6,7 @@
 #include <vector>
 #include <memory>
 #include <functional>
-
-#include "imgui.h"
+#include <mutex>
 
 struct GLFWwindow;
 
@@ -26,7 +25,7 @@ namespace Ferret
         Application(const ApplicationSpecifications& specification = ApplicationSpecifications());
         ~Application();
 
-        static Application& Get();
+        static Application& Get() { return *s_Instance; }
 
         void Run();
         void SetMenubarCallback(const std::function<void()>& menubarCallback) { m_MenubarCallback = menubarCallback; }
@@ -44,10 +43,13 @@ namespace Ferret
 
         float GetTime();
         GLFWwindow* GetWindowHandle() const { return m_WindowHandle; }
+
+        void SubmitToMainThread(const std::function<void()>& function);
+
     private:
         void Init();
         void Shutdown();
-
+        void ExecuteMainThreadQueue();
 
     private:
         ApplicationSpecifications m_Specification;
@@ -60,6 +62,12 @@ namespace Ferret
 
         std::vector<std::shared_ptr<Layer>> m_LayerStack;
         std::function<void()> m_MenubarCallback;
+
+        std::vector<std::function<void()>> m_MainThreadQueue;
+        std::mutex m_MainThreadQueueMutex;
+
+
+        static Application* s_Instance;
     };
 
     Application* CreateAppliction(int argc, char** argv);
