@@ -4,7 +4,7 @@
 #include "imgui.h"
 
 
-Ferret::Application* Ferret::CreateAppliction(int argc, char** argv)
+Ferret::Application* Ferret::CreateApplication(int argc, char** argv)
 {
     Ferret::ApplicationSpecifications spec;
     spec.Title = "Ferret Example";

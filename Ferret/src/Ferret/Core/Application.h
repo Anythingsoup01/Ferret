@@ -70,6 +70,6 @@ namespace Ferret
         static Application* s_Instance;
     };
 
-    Application* CreateAppliction(int argc, char** argv);
+    Application* CreateApplication(int argc, char** argv);
 
 }
