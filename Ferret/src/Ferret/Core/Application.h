@@ -61,7 +61,7 @@ namespace Ferret
         float m_FrameTime = 0.0f;
         float m_LastFrameTime = 0.0f;
 
-        std::vector<std::shared_ptr<Layer>> m_LayerStack;
+        std::vector<Ref<Layer>> m_LayerStack;
         std::function<void()> m_MenubarCallback;
 
         std::vector<std::function<void()>> m_MainThreadQueue;
