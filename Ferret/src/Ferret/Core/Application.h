@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Layer.h"
+#include "Core.h"
 
 #include <string>
 #include <vector>
@@ -37,7 +38,7 @@ namespace Ferret
             m_LayerStack.emplace_back(std::make_shared<T>())->OnAttach();
         }
 
-        void PushLayer(const std::shared_ptr<Layer>& layer) { m_LayerStack.emplace_back(layer); layer->OnAttach(); }
+        void PushLayer(const Ref<Layer>& layer) { m_LayerStack.emplace_back(layer); layer->OnAttach(); }
 
         void Close();
 

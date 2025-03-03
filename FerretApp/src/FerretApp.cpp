@@ -3,6 +3,13 @@
 #include "FerretLayer.h"
 #include "imgui.h"
 
+// To object orientate a layer
+// you must define it out of
+// the scope, or pass it in
+// to the lambda.
+// Either works without a hitch!
+
+Ferret::Ref<Ferret::ExampleLayer> exampleLayer = Ferret::CreateRef<Ferret::ExampleLayer>();
 
 Ferret::Application* Ferret::CreateApplication(int argc, char** argv)
 {
@@ -10,14 +17,8 @@ Ferret::Application* Ferret::CreateApplication(int argc, char** argv)
     spec.Title = "Ferret Example";
 
     Ferret::Application* app = new Ferret::Application(spec);
-    app->PushLayer<Ferret::ExampleLayer>();
-    // Future reference, you shouldn't make multiple of the same //
-    // layer if you intend on using static functions in the menu //
-    // bar, it may cause issues. To resolve this, I will try to  //
-    // work on letting users push object orientated layers       //
-    // ie. Ferret::ExampleLayer exampleLayer;                    //
-    //     app->PushLayer(exampleLayer);                         //
-    // It is officially added to the list of things to do!       //
+
+    app->PushLayer(exampleLayer);
     app->SetMenubarCallback([app]()
     {
         if (ImGui::BeginMenu("File"))
@@ -25,7 +26,7 @@ Ferret::Application* Ferret::CreateApplication(int argc, char** argv)
             if (ImGui::MenuItem("Example"))
             {
                 // Do static function here
-                Ferret::ExampleLayer::Get().LogExample();
+                exampleLayer->LogExample();
             }
             if (ImGui::MenuItem("Exit"))
             {
