@@ -1,7 +1,11 @@
 #pragma once
 
-#include "Layer.h"
+#include "Ferret/Event/ApplicationEvent.h"
+#include "Ferret/Layer/LayerStack.h"
 #include "Core.h"
+#include "Window.h"
+
+#include "Ferret/Event/Event.h"
 
 #include <string>
 #include <vector>
@@ -29,21 +33,19 @@ namespace Ferret
         static Application& Get() { return *s_Instance; }
 
         void Run();
+
+        void OnEvent(Event& e);
+
         void SetMenubarCallback(const std::function<void()>& menubarCallback) { m_MenubarCallback = menubarCallback; }
 
-        template<typename T>
-        void PushLayer()
-        {
-            static_assert(std::is_base_of<Layer, T>::value, "Pushed type is not subclass of Layer!");
-            m_LayerStack.emplace_back(std::make_shared<T>())->OnAttach();
-        }
-
-        void PushLayer(const Ref<Layer>& layer) { m_LayerStack.emplace_back(layer); layer->OnAttach(); }
+        void PushLayer(Layer* layer);
 
         void Close();
 
+        bool OnWindowClose(WindowCloseEvent& e);
+
         float GetTime();
-        GLFWwindow* GetWindowHandle() const { return m_WindowHandle; }
+        Window& GetWindow() const { return *m_Window; }
 
         void SubmitToMainThread(const std::function<void()>& function);
 
@@ -54,14 +56,14 @@ namespace Ferret
 
     private:
         ApplicationSpecifications m_Specification;
-        GLFWwindow* m_WindowHandle = nullptr;
         bool m_Running = false;
+        Scope<Window> m_Window;
 
         float m_TimeStep = 0.0f;
         float m_FrameTime = 0.0f;
         float m_LastFrameTime = 0.0f;
 
-        std::vector<Ref<Layer>> m_LayerStack;
+        LayerStack m_LayerStack;
         std::function<void()> m_MenubarCallback;
 
         std::vector<std::function<void()>> m_MainThreadQueue;

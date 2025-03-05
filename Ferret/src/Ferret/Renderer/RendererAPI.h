@@ -16,7 +16,6 @@ namespace Ferret
     public:
         virtual ~RendererAPI() = default;
 
-        virtual void Init() = 0;
         virtual void Clear(const glm::vec4& clearColor) = 0;
 
         static API GetAPI() { return s_API; }

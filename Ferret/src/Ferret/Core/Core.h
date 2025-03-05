@@ -1,5 +1,18 @@
 #pragma once
 #include <memory>
+#include <stdio.h>
+
+#define FE_PLATFORM_LINUX
+
+#if defined (FE_PLATFORM_LINUX)
+#include <signal.h>
+#   define FE_ASSERT(x) if (!(x)) { raise(SIGTRAP); }
+#   define FE_API_ASSERT(x, ...) if (!(x)) { printf("%s", __VA_ARGS__); raise(SIGTRAP); }
+
+#endif
+
+#define BIT(x) (1 << x)
+#define BIND_EVENT_FN(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
 
 namespace Ferret
 {

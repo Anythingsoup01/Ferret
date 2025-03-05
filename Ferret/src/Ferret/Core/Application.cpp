@@ -1,5 +1,8 @@
 #include "Application.h"
 
+#include "Ferret/Core/Core.h"
+#include "Ferret/Event/ApplicationEvent.h"
+#include "Ferret/Event/Event.h"
 #include "Ferret/Renderer/RenderCommand.h"
 #include "Ferret/ImGui/FerretGui.h"
 
@@ -20,6 +23,10 @@ namespace Ferret
         :m_Specification(specification)
     {
         s_Instance = this;
+        m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height));
+        m_Window->SetVSync(true);
+        m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
+
         Init();
     }
 
@@ -31,15 +38,7 @@ namespace Ferret
 
     void Application::Init()
     {
-        if (!glfwInit())
-        {
-            Utils::PrintError("Could not load GLFW!");
-            return;
-        }
-        m_WindowHandle = glfwCreateWindow(m_Specification.Width, m_Specification.Height, m_Specification.Title.c_str(), NULL, NULL);
-        glfwMakeContextCurrent(m_WindowHandle);
 
-        RenderCommand::Init();
 
         FerretGui::Init();
 
@@ -47,14 +46,7 @@ namespace Ferret
 
     void Application::Shutdown()
     {
-        for (auto& layer : m_LayerStack)
-            layer->OnDetach();
-        m_LayerStack.clear();
-
         FerretGui::Shutdown();
-
-        glfwDestroyWindow(m_WindowHandle);
-        glfwTerminate();
 
         g_ApplicationRunning = false;
     }
@@ -65,11 +57,9 @@ namespace Ferret
 
         ImGuiIO& io = ImGui::GetIO();
 
-        while (!glfwWindowShouldClose(m_WindowHandle) && m_Running)
+        while (m_Running)
         {
-            glfwPollEvents();
-            glfwSwapBuffers(m_WindowHandle);
-
+            m_Window->OnUpdate();
             RenderCommand::Clear(glm::vec4(0,0,0,1));
 
             for (auto& layer : m_LayerStack)
@@ -109,7 +99,7 @@ namespace Ferret
                 }
                 ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, { 0, 0 });
 
-                for (auto& layer : m_LayerStack)
+                for (Layer* layer : m_LayerStack)
                     layer->OnUIRender();
 
 
@@ -135,9 +125,36 @@ namespace Ferret
 
     }
 
+    void Application::OnEvent(Event& e)
+    {
+        EventDispatcher dispatcher(e);
+
+        dispatcher.Dispatch<WindowCloseEvent>(BIND_EVENT_FN(Application::OnWindowClose));
+
+        for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
+        {
+            if (e.Handled)
+                break;
+            (*it)->OnEvent(e);
+        }
+    }
+
+    void Application::PushLayer(Layer* layer)
+    {
+        m_LayerStack.PushLayer(layer);
+        layer->OnAttach();
+    }
+
+
     void Application::Close()
     {
         m_Running = false;
+    }
+
+    bool Application::OnWindowClose(WindowCloseEvent& e)
+    {
+        m_Running = false;
+        return true;
     }
 
     float Application::GetTime()

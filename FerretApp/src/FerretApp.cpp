@@ -9,7 +9,7 @@
 // to the lambda.
 // Either works without a hitch!
 
-Ferret::Ref<Ferret::ExampleLayer> exampleLayer = Ferret::CreateRef<Ferret::ExampleLayer>();
+Ferret::ExampleLayer* exampleLayer = new Ferret::ExampleLayer;
 
 Ferret::Application* Ferret::CreateApplication(int argc, char** argv)
 {
