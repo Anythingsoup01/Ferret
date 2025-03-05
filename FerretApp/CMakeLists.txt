@@ -1,6 +1,6 @@
 set(SRCS
-    src/FerretApp.cpp
     src/FerretLayer.cpp
+    src/FerretApp.cpp
     src/FerretLayer.h
 )
 add_executable(FerretApp ${SRCS})

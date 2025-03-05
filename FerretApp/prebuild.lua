@@ -5,9 +5,8 @@ project "FerretApp"
 
     files
     {
-        "src/FerretApp.cpp",
-        "src/FerretLayer.cpp",
-        "src/FerretLayer.h",
+        "src/*.cpp",
+        "src/*.h",
     }
 
     includedirs

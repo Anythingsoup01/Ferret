@@ -18,11 +18,14 @@ namespace Ferret
 
     void ExampleLayer::OnUIRender()
     {
-        ImGui::Begin("Example");
+        ImGui::Begin("##MAINPAGE");
         {
-            ImGui::Text("Hello from Ferret!");
-            ImGui::End(); // Example
+            ImGui::Text("Welcome to Ferret");
+
+            ImGui::End();
         }
+
+        ImGui::ShowDemoWindow();
     }
 
     void ExampleLayer::LogExample()
