@@ -1,8 +1,5 @@
 #include "Application.h"
 
-#include "backends/imgui_impl_glfw.h"
-#include "backends/imgui_impl_opengl3.h"
-
 #include "Ferret/Renderer/RenderCommand.h"
 #include "Ferret/ImGui/FerretGui.h"
 
@@ -131,6 +128,8 @@ namespace Ferret
 
             // Rendering
             FerretGui::Render();
+
+            ExecuteMainThreadQueue();
 
         }
 
