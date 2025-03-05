@@ -6,7 +6,6 @@ namespace Ferret
     class OpenGLRendererAPI : public RendererAPI
     {
     public:
-        virtual void Init();
         virtual void Clear(const glm::vec4& clearColor);
     };
 }
