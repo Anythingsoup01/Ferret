@@ -28,5 +28,5 @@ project "FerretApp"
         defines "FE_DEBUG"
 
     filter "configurations:Release"
-        defines "FE_Release"
+        defines "FE_RELEASE"
 

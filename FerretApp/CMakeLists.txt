@@ -28,6 +28,6 @@ endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 if(CMAKE_BUILD_TYPE STREQUAL Release)
 target_compile_definitions(FerretApp
 PUBLIC
-    FE_Release
+    FE_RELEASE
 )
 endif(CMAKE_BUILD_TYPE STREQUAL Release)

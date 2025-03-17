@@ -16,7 +16,10 @@
 
 #if defined(FE_PLATFORM_WINDOWS)
 #   include <Windows.h>
+#elif defined (FE_PLATFORM_LINUX)
+#   include <signal.h>
 #endif
 
-#include "Ferret/Core/Log.h"
+
 #include "Ferret/Core/Core.h"
+#include "Ferret/Core/Log.h"

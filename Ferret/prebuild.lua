@@ -31,9 +31,15 @@ project "Ferret"
         "stb"
     }
 
+    defines
+    {
+        "FE_RENDERER_OPENGL",
+        "GLFW_INCLUDE_NONE"
+    }
+
     filter "configurations:Debug"
         defines "FE_DEBUG"
 
     filter "configurations:Release"
-        defines "FE_Release"
+        defines "FE_RELEASE"
 

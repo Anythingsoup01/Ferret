@@ -3,12 +3,13 @@ set(SRCS
     src/Ferret/Core/Application.cpp
     src/Ferret/Core/Log.cpp
     src/Ferret/Layer/LayerStack.cpp
-    src/Ferret/ImGui/FerretGui.cpp
     src/Ferret/ImGui/ImGuiBuild.cpp
+    src/Ferret/ImGui/GUI.cpp
     src/Ferret/Renderer/GraphicsContext.cpp
     src/Ferret/Renderer/RendererAPI.cpp
     src/Ferret/Renderer/RenderCommand.cpp
     src/Ferret/Window/Window.cpp
+    src/Platform/OpenGL/ImGui/OpenGLGUI.cpp
     src/Platform/OpenGL/OpenGLGraphicsContext.cpp
     src/Platform/OpenGL/OpenGLRendererAPI.cpp
     src/Platform/GLFW/GLFWInput.cpp
@@ -22,7 +23,7 @@ set(SRCS
     src/Ferret/Core/Core.h
     src/Ferret/Layer/LayerStack.h
     src/Ferret/Layer/Layer.h
-    src/Ferret/ImGui/FerretGui.h
+    src/Ferret/ImGui/GUI.h
     src/Ferret/Event/MouseEvent.h
     src/Ferret/Event/Event.h
     src/Ferret/Event/KeyEvent.h
@@ -32,6 +33,7 @@ set(SRCS
     src/Ferret/Renderer/RendererAPI.h
     src/Ferret/Window/Window.h
     src/Platform/OpenGL/OpenGLRendererAPI.h
+    src/Platform/OpenGL/ImGui/OpenGLGUI.h
     src/Platform/OpenGL/OpenGLGraphicsContext.h
     src/Platform/GLFW/GLFWWindow.h
     src/Ferret.h
@@ -59,6 +61,11 @@ target_link_libraries(Ferret
     stb
 )
 
+target_compile_definitions(Ferret PUBLIC
+    FE_RENDERER_OPENGL
+    GLFW_INCLUDE_NONE
+)
+
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
 target_compile_definitions(Ferret
 PUBLIC
@@ -68,6 +75,6 @@ endif(CMAKE_BUILD_TYPE STREQUAL Debug)
 if(CMAKE_BUILD_TYPE STREQUAL Release)
 target_compile_definitions(Ferret
 PUBLIC
-    FE_Release
+    FE_RELEASE
 )
 endif(CMAKE_BUILD_TYPE STREQUAL Release)

@@ -1,13 +1,18 @@
 #pragma once
 
-#include "Ferret/Event/ApplicationEvent.h"
-#include "Ferret/Layer/LayerStack.h"
+#include <mutex>
+
 #include "Core.h"
-#include "Ferret/Window/Window.h"
 
 #include "Ferret/Event/Event.h"
+#include "Ferret/Event/ApplicationEvent.h"
 
-#include <mutex>
+#include "Ferret/ImGui/GUI.h"
+
+#include "Ferret/Layer/LayerStack.h"
+
+#include "Ferret/Window/Window.h"
+
 
 struct GLFWwindow;
 
@@ -54,6 +59,7 @@ namespace Ferret
         ApplicationSpecifications m_Specification;
         bool m_Running = false;
         Scope<Window> m_Window;
+        Scope<GUI> m_GUI;
 
         float m_TimeStep = 0.0f;
         float m_FrameTime = 0.0f;

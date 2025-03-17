@@ -1,4 +1,4 @@
-
+#include "fepch.h"
 #include "GraphicsContext.h"
 
 #include "Ferret/Renderer/RendererAPI.h"
@@ -11,10 +11,9 @@ namespace Ferret {
 
         switch (RendererAPI::GetAPI())
         {
-            case RendererAPI::API::NONE:    FE_API_ASSERT(false, "RendererAPI::None is currently not supported!"); return nullptr;
+            case RendererAPI::API::NONE:    FE_API_ASSERT(false, "NO GRAPHICS API DEFINED!"); return nullptr;
             case RendererAPI::API::OPENGL:  return CreateScope<OpenGLGraphicsContext>(static_cast<GLFWwindow*>(window));
-            default:
-                return nullptr;
+            default: FE_API_ASSERT(false, "RENDERERAPI NOT SUPPORTED!") return nullptr;
         }
 
     }
