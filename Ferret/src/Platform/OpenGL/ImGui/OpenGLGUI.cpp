@@ -1,4 +1,4 @@
-#include "FerretGui.h"
+#include "OpenGLGUI.h"
 
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
@@ -11,7 +11,7 @@
 
 namespace Ferret
 {
-    void FerretGui::Init()
+    void OpenGLGUI::Init()
     {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
@@ -39,21 +39,21 @@ namespace Ferret
         ImGui_ImplOpenGL3_Init("#version 430");
     }
 
-    void FerretGui::Shutdown()
+    void OpenGLGUI::Shutdown()
     {
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
     }
 
-    void FerretGui::Update()
+    void OpenGLGUI::NewFrame()
     {
         ImGui_ImplGlfw_NewFrame();
         ImGui_ImplOpenGL3_NewFrame();
         ImGui::NewFrame();
     }
 
-    void FerretGui::Render()
+    void OpenGLGUI::Render()
     {
         ImGuiIO& io = ImGui::GetIO();
         ImGui::Render();

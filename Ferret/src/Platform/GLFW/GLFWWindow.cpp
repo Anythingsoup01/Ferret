@@ -1,5 +1,5 @@
-
-#include "LinuxWindow.h"
+#include "fepch.h"
+#include "GLFWWindow.h"
 #include "Ferret/Core/Core.h"
 
 // Event
@@ -16,40 +16,37 @@ namespace Ferret
         printf("GLFW Error (%d) : %s", error, description);
     }
 
-    LinuxWindow::LinuxWindow(const WindowProps& props)
+    GLFWWindow::GLFWWindow(const WindowProps& props)
     {
         Init(props);
     }
-    LinuxWindow::~LinuxWindow()
+    GLFWWindow::~GLFWWindow()
     {
         Shutdown();
     }
-    void LinuxWindow::OnUpdate()
+    void GLFWWindow::OnUpdate()
     {
         glfwPollEvents();
         m_Context->SwapBuffers();
     }
-    void LinuxWindow::SetVSync(bool enabled)
+    void GLFWWindow::SetVSync(bool enabled)
     {
         if (enabled) glfwSwapInterval(1);
         else glfwSwapInterval(0);
         m_Data.VSync = enabled;
     }
-    bool LinuxWindow::IsVSync() const
+    bool GLFWWindow::IsVSync() const
     {
         return m_Data.VSync;
     }
 
-    void* LinuxWindow::GetNativeWindow() const
+    void* GLFWWindow::GetNativeWindow() const
     {
         return m_Window;
     }
 
-    Scope<Window> Window::Create(const WindowProps& props) {
-        return CreateScope<LinuxWindow>(props);
-    }
 
-    void LinuxWindow::Init(const WindowProps& props)
+    void GLFWWindow::Init(const WindowProps& props)
     {
         // Setting Data props to equal inputted props
         m_Data.Title = props.Title;
@@ -188,7 +185,7 @@ namespace Ferret
             data.EventCallback(event);
         });
     }
-    void LinuxWindow::Shutdown()
+    void GLFWWindow::Shutdown()
     {
         glfwDestroyWindow(m_Window);
     }

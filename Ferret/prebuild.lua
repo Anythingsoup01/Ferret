@@ -3,19 +3,23 @@ project "Ferret"
     dialect "17"
     kind "StaticLib"
 
+    pch "src/fepch.h"
+
     files
     {
         "src/*.cpp",
-        "src/*.h"
+        "src/*.h",
     }
 
     includedirs
     {
         "src",
-        "$(ROOTDIR)/vendor/glfw/include",
-        "$(ROOTDIR)/vendor/glad/include",
-        "$(ROOTDIR)/vendor/glm",
-        "$(ROOTDIR)/vendor/imgui",
+        "$(WORKSPACEDIR)/vendor/glfw/include",
+        "$(WORKSPACEDIR)/vendor/glad/include",
+        "$(WORKSPACEDIR)/vendor/spdlog/include",
+        "$(WORKSPACEDIR)/vendor/glm",
+        "$(WORKSPACEDIR)/vendor/imgui",
+        "$(WORKSPACEDIR)/vendor/stb",
     }
 
     links
@@ -23,5 +27,19 @@ project "Ferret"
         "glfw",
         "Glad",
         "GL",
-        "ImGui"
+        "ImGui",
+        "stb"
     }
+
+    defines
+    {
+        "FE_RENDERER_OPENGL",
+        "GLFW_INCLUDE_NONE"
+    }
+
+    filter "configurations:Debug"
+        defines "FE_DEBUG"
+
+    filter "configurations:Release"
+        defines "FE_RELEASE"
+

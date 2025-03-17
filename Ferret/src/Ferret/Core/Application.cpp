@@ -1,14 +1,11 @@
+#include "fepch.h"
 #include "Application.h"
 
 #include "Ferret/Core/Core.h"
 #include "Ferret/Event/ApplicationEvent.h"
 #include "Ferret/Event/Event.h"
 #include "Ferret/Renderer/RenderCommand.h"
-#include "Ferret/ImGui/FerretGui.h"
 
-#include <GLFW/glfw3.h>
-
-#include "Utils.h"
 #include "imgui.h"
 
 #include <glm/glm.hpp>
@@ -23,11 +20,16 @@ namespace Ferret
         :m_Specification(specification)
     {
         s_Instance = this;
+        PlatformDetection::Init();
+
         m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height));
         m_Window->SetVSync(true);
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
+        m_GUI = GUI::Create();
+
         Init();
+
     }
 
     Application::~Application()
@@ -38,16 +40,12 @@ namespace Ferret
 
     void Application::Init()
     {
-
-
-        FerretGui::Init();
-
+        m_GUI->Init();
     }
 
     void Application::Shutdown()
     {
-        FerretGui::Shutdown();
-
+        m_GUI->Shutdown();
         g_ApplicationRunning = false;
     }
 
@@ -65,7 +63,7 @@ namespace Ferret
             for (auto& layer : m_LayerStack)
                 layer->OnUpdate(m_TimeStep);
 
-            FerretGui::Update();
+            m_GUI->NewFrame();
 
             static bool dockspaceOpen = true;
             static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -117,7 +115,7 @@ namespace Ferret
             ImGui::End();
 
             // Rendering
-            FerretGui::Render();
+            m_GUI->Render();
 
             ExecuteMainThreadQueue();
 
@@ -159,7 +157,7 @@ namespace Ferret
 
     float Application::GetTime()
     {
-        return (float)glfwGetTime();
+        return m_Window->GetTime();
     }
 
     void Application::SubmitToMainThread(const std::function<void()>& function)

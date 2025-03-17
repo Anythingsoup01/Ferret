@@ -1,9 +1,5 @@
 #include "FerretLayer.h"
-#include "Ferret/Core/Application.h"
-#include "Ferret/Core/Core.h"
-#include "Ferret/Core/Utils.h"
-#include "Ferret/Core/Input.h"
-#include "Ferret/Core/KeyCodes.h"
+#include "Ferret.h"
 #include "imgui.h"
 
 namespace Ferret
@@ -54,9 +50,9 @@ namespace Ferret
             case KeyCode::C:
             {
                 if (ctrl)
-                    Utils::PrintWarning("Ctrl + C Pressed");
+                    FE_CLI_INFO("Ctrl + C Pressed");
                 else
-                    Utils::PrintWarning("C Pressed");
+                    FE_CLI_INFO("C Pressed");
                 break;
             }
             default:
@@ -67,6 +63,6 @@ namespace Ferret
 
     void ExampleLayer::LogExample()
     {
-        Utils::PrintWarning("Printing from MenuBar");
+        FE_CLI_INFO("Logging from MenuBar");
     }
 }

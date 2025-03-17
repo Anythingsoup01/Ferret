@@ -11,7 +11,6 @@ namespace Ferret
         {
             NONE = 0,
             OPENGL = 1,
-            VULKAN = 2,
         };
     public:
         virtual ~RendererAPI() = default;

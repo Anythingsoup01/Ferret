@@ -1,4 +1,3 @@
-
 #include "Ferret/Core/Input.h"
 #include "Ferret/Core/Application.h"
 
