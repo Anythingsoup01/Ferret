@@ -1,4 +1,4 @@
-#if !defined(GLFW_INLCUDE_NONE)
+#if !defined(GLFW_INCLUDE_NONE)
 #   define GLFW_INCLUDE_NONE
 #endif
 #include <backends/imgui_impl_glfw.cpp>
