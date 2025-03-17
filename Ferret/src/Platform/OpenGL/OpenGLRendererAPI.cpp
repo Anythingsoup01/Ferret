@@ -1,5 +1,5 @@
+#include "fepch.h"
 #include "OpenGLRendererAPI.h"
-#include "Ferret/Core/Utils.h"
 
 #include <GLFW/glfw3.h>
 

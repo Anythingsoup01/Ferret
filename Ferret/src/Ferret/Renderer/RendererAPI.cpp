@@ -1,5 +1,5 @@
+#include "fepch.h"
 #include "RendererAPI.h"
-#include "Ferret/Core/Utils.h"
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
 
@@ -23,7 +23,7 @@ namespace Ferret
         {
             case RendererAPI::API::NONE:
             {
-                Utils::PrintError("NO GRAPHICS API DEFINED!");
+                FE_API_ASSERT(false, "NO GRAPHICS API DEFINED!");
                 return nullptr;
             }
             case RendererAPI::API::OPENGL:
@@ -32,11 +32,13 @@ namespace Ferret
             }
             case RendererAPI::API::VULKAN:
             {
-                Utils::PrintError("VULCAN NOT SUPPORTED AS OF THIS MOMENT!");
+                FE_API_ASSERT(false, "NO GRAPHICS API DEFINED!");
                 break;
             }
+            default:
+                FE_API_ASSERT(false, "OUT OF SCOPE!");
+                return nullptr;
         }
-        Utils::PrintError("OUT OF SCOPE! RendererAPI.cpp");
         return nullptr;
     }
 }

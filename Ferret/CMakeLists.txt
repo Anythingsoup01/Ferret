@@ -1,6 +1,6 @@
 set(SRCS
-    src/Ferret/Core/Utils.cpp
     src/Ferret/Core/Application.cpp
+    src/Ferret/Core/Log.cpp
     src/Ferret/Layer/LayerStack.cpp
     src/Ferret/ImGui/FerretGui.cpp
     src/Ferret/ImGui/ImGuiBuild.cpp
@@ -11,7 +11,7 @@ set(SRCS
     src/Platform/Linux/LinuxWindow.cpp
     src/Platform/OpenGL/OpenGLGraphicsContext.cpp
     src/Platform/OpenGL/OpenGLRendererAPI.cpp
-    src/Ferret/Core/Utils.h
+    src/Ferret/Core/Log.h
     src/Ferret/Core/Platform.h
     src/Ferret/Core/Window.h
     src/Ferret/Core/Entrypoint.h
@@ -32,16 +32,20 @@ set(SRCS
     src/Platform/Linux/LinuxWindow.h
     src/Platform/OpenGL/OpenGLRendererAPI.h
     src/Platform/OpenGL/OpenGLGraphicsContext.h
+    src/fepch.h
 )
 add_library(Ferret STATIC ${SRCS})
 set_property(TARGET Ferret PROPERTY CXX_STANDARD 17)
 
+target_precompile_headers(Ferret PUBLIC src/fepch.h)
 target_include_directories(Ferret PRIVATE
     src
     ${CMAKE_SOURCE_DIR}/vendor/glfw/include
     ${CMAKE_SOURCE_DIR}/vendor/glad/include
+    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
     ${CMAKE_SOURCE_DIR}/vendor/glm
     ${CMAKE_SOURCE_DIR}/vendor/imgui
+    ${CMAKE_SOURCE_DIR}/vendor/stb
 )
 
 target_link_libraries(Ferret
@@ -49,5 +53,30 @@ target_link_libraries(Ferret
     Glad
     GL
     ImGui
+    stb
 )
 
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+target_compile_definitions(Ferret
+PUBLIC
+    FE_DEBUG
+)
+endif(CMAKE_BUILD_TYPE STREQUAL Debug)
+if(CMAKE_BUILD_TYPE STREQUAL Release)
+target_compile_definitions(Ferret
+PUBLIC
+    FE_Release
+)
+endif(CMAKE_BUILD_TYPE STREQUAL Release)
+if (WIN32)
+target_compile_definitions(Ferret
+PUBLIC
+    FE_PLATFORM_WINDOWS
+)
+endif(WIN32)
+if (UNIX AND NOT APPLE)
+target_compile_definitions(Ferret
+PUBLIC
+    FE_PLATFORM_LINUX
+)
+endif(UNIX AND NOT APPLE)

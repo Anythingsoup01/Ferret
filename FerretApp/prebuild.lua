@@ -11,15 +11,27 @@ project "FerretApp"
 
     includedirs
     {
-        "$(ROOTDIR)/Ferret/src",
-        "$(ROOTDIR)/vendor/glfw/include",
-        "$(ROOTDIR)/vendor/glad/include",
-        "$(ROOTDIR)/vendor/glm",
-        "$(ROOTDIR)/vendor/imgui",
+        "$(WORKSPACEDIR)/Ferret/src",
+        "$(WORKSPACEDIR)/vendor/glfw/include",
+        "$(WORKSPACEDIR)/vendor/glad/include",
+        "$(WORKSPACEDIR)/vendor/spdlog/include",
+        "$(WORKSPACEDIR)/vendor/glm",
+        "$(WORKSPACEDIR)/vendor/imgui",
     }
 
     links
     {
-        "Ferret"
+        "Ferret",
     }
 
+    filter "configurations:Debug"
+        defines "FE_DEBUG"
+
+    filter "configurations:Release"
+        defines "FE_Release"
+
+    filter "system:windows"
+        defines "FE_PLATFORM_WINDOWS"
+
+    filter "system:linux"
+        defines "FE_PLATFORM_LINUX"

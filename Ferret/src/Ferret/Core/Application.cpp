@@ -1,3 +1,4 @@
+#include "fepch.h"
 #include "Application.h"
 
 #include "Ferret/Core/Core.h"
@@ -6,9 +7,6 @@
 #include "Ferret/Renderer/RenderCommand.h"
 #include "Ferret/ImGui/FerretGui.h"
 
-#include <GLFW/glfw3.h>
-
-#include "Utils.h"
 #include "imgui.h"
 
 #include <glm/glm.hpp>
@@ -159,7 +157,7 @@ namespace Ferret
 
     float Application::GetTime()
     {
-        return (float)glfwGetTime();
+        return m_Window->GetTime();
     }
 
     void Application::SubmitToMainThread(const std::function<void()>& function)

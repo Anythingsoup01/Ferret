@@ -8,6 +8,7 @@ namespace Ferret
 {
     int Main(int argc, char** argv)
     {
+        Ferret::Log::Init();
         while (g_ApplicationRunning)
         {
             Ferret::Application* app = Ferret::CreateApplication(argc, argv);
