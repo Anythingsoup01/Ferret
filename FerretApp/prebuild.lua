@@ -30,8 +30,3 @@ project "FerretApp"
     filter "configurations:Release"
         defines "FE_Release"
 
-    filter "system:windows"
-        defines "FE_PLATFORM_WINDOWS"
-
-    filter "system:linux"
-        defines "FE_PLATFORM_LINUX"

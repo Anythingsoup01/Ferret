@@ -3,14 +3,10 @@
 #include "Ferret/Event/ApplicationEvent.h"
 #include "Ferret/Layer/LayerStack.h"
 #include "Core.h"
-#include "Window.h"
+#include "Ferret/Window/Window.h"
 
 #include "Ferret/Event/Event.h"
 
-#include <string>
-#include <vector>
-#include <memory>
-#include <functional>
 #include <mutex>
 
 struct GLFWwindow;

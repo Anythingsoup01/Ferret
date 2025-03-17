@@ -21,11 +21,12 @@ namespace Ferret
         :m_Specification(specification)
     {
         s_Instance = this;
+        PlatformDetection::Init();
         m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height));
         m_Window->SetVSync(true);
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
-
         Init();
+
     }
 
     Application::~Application()
@@ -36,10 +37,7 @@ namespace Ferret
 
     void Application::Init()
     {
-
-
         FerretGui::Init();
-
     }
 
     void Application::Shutdown()

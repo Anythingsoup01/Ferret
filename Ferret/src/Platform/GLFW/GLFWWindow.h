@@ -1,17 +1,17 @@
 #pragma once
 
-#include "Ferret/Core/Window.h"
+#include "Ferret/Window/Window.h"
 #include "Ferret/Renderer/GraphicsContext.h"
 
-#include "GLFW/glfw3.h"
+#include <GLFW/glfw3.h>
 
 namespace Ferret
 {
-    class LinuxWindow : public Window
+    class GLFWWindow : public Window
     {
     public:
-        LinuxWindow(const WindowProps& props);
-        virtual ~LinuxWindow();
+        GLFWWindow(const WindowProps& props);
+        virtual ~GLFWWindow();
 
         void OnUpdate() override;
 
@@ -23,6 +23,8 @@ namespace Ferret
         bool IsVSync() const override;
 
         virtual void* GetNativeWindow() const override;
+
+        virtual float GetTime() override { return (float)glfwGetTime(); }
 
     private:
         GLFWwindow* m_Window;

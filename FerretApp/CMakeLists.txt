@@ -31,15 +31,3 @@ PUBLIC
     FE_Release
 )
 endif(CMAKE_BUILD_TYPE STREQUAL Release)
-if (WIN32)
-target_compile_definitions(FerretApp
-PUBLIC
-    FE_PLATFORM_WINDOWS
-)
-endif(WIN32)
-if (UNIX AND NOT APPLE)
-target_compile_definitions(FerretApp
-PUBLIC
-    FE_PLATFORM_LINUX
-)
-endif(UNIX AND NOT APPLE)

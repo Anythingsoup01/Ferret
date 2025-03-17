@@ -1,4 +1,5 @@
 set(SRCS
+    src/Ferret/Core/PlatformDetection.cpp
     src/Ferret/Core/Application.cpp
     src/Ferret/Core/Log.cpp
     src/Ferret/Layer/LayerStack.cpp
@@ -7,15 +8,15 @@ set(SRCS
     src/Ferret/Renderer/GraphicsContext.cpp
     src/Ferret/Renderer/RendererAPI.cpp
     src/Ferret/Renderer/RenderCommand.cpp
-    src/Platform/Linux/LinuxInput.cpp
-    src/Platform/Linux/LinuxWindow.cpp
+    src/Ferret/Window/Window.cpp
     src/Platform/OpenGL/OpenGLGraphicsContext.cpp
     src/Platform/OpenGL/OpenGLRendererAPI.cpp
+    src/Platform/GLFW/GLFWInput.cpp
+    src/Platform/GLFW/GLFWWindow.cpp
     src/Ferret/Core/Log.h
-    src/Ferret/Core/Platform.h
-    src/Ferret/Core/Window.h
     src/Ferret/Core/Entrypoint.h
     src/Ferret/Core/Application.h
+    src/Ferret/Core/PlatformDetection.h
     src/Ferret/Core/Input.h
     src/Ferret/Core/KeyCodes.h
     src/Ferret/Core/Core.h
@@ -29,9 +30,11 @@ set(SRCS
     src/Ferret/Renderer/RenderCommand.h
     src/Ferret/Renderer/GraphicsContext.h
     src/Ferret/Renderer/RendererAPI.h
-    src/Platform/Linux/LinuxWindow.h
+    src/Ferret/Window/Window.h
     src/Platform/OpenGL/OpenGLRendererAPI.h
     src/Platform/OpenGL/OpenGLGraphicsContext.h
+    src/Platform/GLFW/GLFWWindow.h
+    src/Ferret.h
     src/fepch.h
 )
 add_library(Ferret STATIC ${SRCS})
@@ -68,15 +71,3 @@ PUBLIC
     FE_Release
 )
 endif(CMAKE_BUILD_TYPE STREQUAL Release)
-if (WIN32)
-target_compile_definitions(Ferret
-PUBLIC
-    FE_PLATFORM_WINDOWS
-)
-endif(WIN32)
-if (UNIX AND NOT APPLE)
-target_compile_definitions(Ferret
-PUBLIC
-    FE_PLATFORM_LINUX
-)
-endif(UNIX AND NOT APPLE)
