@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.30)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(Ferret LANGUAGES C CXX)
-add_subdirectory(vendor/prebuild)
 add_subdirectory(vendor/stb)
 add_subdirectory(vendor/imgui)
 add_subdirectory(vendor/glad)
