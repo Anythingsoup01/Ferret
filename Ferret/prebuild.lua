@@ -14,12 +14,12 @@ project "Ferret"
     includedirs
     {
         "src",
-        "$(WORKSPACEDIR)/vendor/glfw/include",
-        "$(WORKSPACEDIR)/vendor/glad/include",
-        "$(WORKSPACEDIR)/vendor/spdlog/include",
-        "$(WORKSPACEDIR)/vendor/glm",
-        "$(WORKSPACEDIR)/vendor/imgui",
-        "$(WORKSPACEDIR)/vendor/stb",
+        "$(WORKSPACEDIR)/Ferret/vendor/glfw/include",
+        "$(WORKSPACEDIR)/Ferret/vendor/glad/include",
+        "$(WORKSPACEDIR)/Ferret/vendor/spdlog/include",
+        "$(WORKSPACEDIR)/Ferret/vendor/glm",
+        "$(WORKSPACEDIR)/Ferret/vendor/imgui",
+        "$(WORKSPACEDIR)/Ferret/vendor/stb",
     }
 
     links

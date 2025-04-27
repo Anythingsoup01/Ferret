@@ -45,12 +45,12 @@ set_property(TARGET Ferret PROPERTY CXX_STANDARD 17)
 target_precompile_headers(Ferret PUBLIC src/fepch.h)
 target_include_directories(Ferret PRIVATE
     src
-    ${CMAKE_SOURCE_DIR}/vendor/glfw/include
-    ${CMAKE_SOURCE_DIR}/vendor/glad/include
-    ${CMAKE_SOURCE_DIR}/vendor/spdlog/include
-    ${CMAKE_SOURCE_DIR}/vendor/glm
-    ${CMAKE_SOURCE_DIR}/vendor/imgui
-    ${CMAKE_SOURCE_DIR}/vendor/stb
+    ${CMAKE_SOURCE_DIR}/Ferret/vendor/glfw/include
+    ${CMAKE_SOURCE_DIR}/Ferret/vendor/glad/include
+    ${CMAKE_SOURCE_DIR}/Ferret/vendor/spdlog/include
+    ${CMAKE_SOURCE_DIR}/Ferret/vendor/glm
+    ${CMAKE_SOURCE_DIR}/Ferret/vendor/imgui
+    ${CMAKE_SOURCE_DIR}/Ferret/vendor/stb
 )
 
 target_link_libraries(Ferret
