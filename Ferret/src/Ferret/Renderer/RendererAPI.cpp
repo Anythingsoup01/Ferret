@@ -2,6 +2,7 @@
 #include "RendererAPI.h"
 
 #include "Platform/OpenGL/OpenGLRendererAPI.h"
+#include "Platform/Vulkan/VulkanRendererAPI.h"
 
 #if !defined(FE_RENDERER_OPENGL) && !defined(FE_RENDERER_VULKAN)
 #define FE_RENDERER_OPENGL
@@ -11,6 +12,8 @@ namespace Ferret
 {
 #   ifdef FE_RENDERER_OPENGL
     RendererAPI::API RendererAPI::s_API = RendererAPI::API::OPENGL;
+#   elif defined (FE_RENDERER_VULKAN)
+    RendererAPI::API RendererAPI::s_API = RendererAPI::API::VULKAN;
 #   endif
 
     Scope<RendererAPI>RendererAPI::Create()
@@ -19,6 +22,7 @@ namespace Ferret
         {
             case RendererAPI::API::NONE:    FE_API_ASSERT(false, "NO GRAPHICS API DEFINED!"); return nullptr;
             case RendererAPI::API::OPENGL:  return CreateScope<OpenGLRendererAPI>();
+            case RendererAPI::API::VULKAN:  return CreateScope<VulkanRendererAPI>();
             default: FE_API_ASSERT(false, "RENDERERAPI NOT SUPPORTED!") return nullptr;
         }
     }

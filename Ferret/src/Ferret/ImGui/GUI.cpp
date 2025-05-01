@@ -12,6 +12,7 @@ namespace Ferret
         {
             case RendererAPI::API::NONE: FE_API_ASSERT(false, "NO RENDER API SET!"); return nullptr;
             case RendererAPI::API::OPENGL: return CreateScope<OpenGLGUI>();
+            //case RendererAPI::API::VULKAN: return CreateScope<VulkanGUI>();
             default: FE_API_ASSERT(false, "RENDER API NOT SUPPORTED!") return nullptr;
         }
     }

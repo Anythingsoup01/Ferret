@@ -1,3 +1,4 @@
+#include "GLFW/glfw3.h"
 #include "fepch.h"
 #include "GLFWWindow.h"
 #include "Ferret/Core/Core.h"
@@ -60,6 +61,10 @@ namespace Ferret
             glfwSetErrorCallback(GLFWErrorCallback);
             FE_API_ASSERT(success, "Could not load GLFW!");
         }
+
+        #ifdef FE_RENDERER_VULKAN
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        #endif
 
         m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 
@@ -187,6 +192,8 @@ namespace Ferret
     }
     void GLFWWindow::Shutdown()
     {
+        m_Context->Shutdown();
         glfwDestroyWindow(m_Window);
+        glfwTerminate();
     }
 }

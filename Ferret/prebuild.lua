@@ -28,13 +28,14 @@ project "Ferret"
         "Glad",
         "GL",
         "ImGui",
-        "stb"
+        "stb",
+        "vulkan",
     }
 
     defines
     {
-        "FE_RENDERER_OPENGL",
-        "GLFW_INCLUDE_NONE"
+        "FE_RENDERER_VULKAN",
+        "GLFW_INCLUDE_VULKAN"
     }
 
     filter "configurations:Debug"

@@ -9,6 +9,9 @@ set(SRCS
     src/Ferret/Renderer/RendererAPI.cpp
     src/Ferret/Renderer/RenderCommand.cpp
     src/Ferret/Window/Window.cpp
+    src/Platform/Vulkan/VulkanRendererAPI.cpp
+    src/Platform/Vulkan/VulkanContext.cpp
+    src/Platform/Vulkan/VulkanDebug.cpp
     src/Platform/OpenGL/ImGui/OpenGLGUI.cpp
     src/Platform/OpenGL/OpenGLGraphicsContext.cpp
     src/Platform/OpenGL/OpenGLRendererAPI.cpp
@@ -32,6 +35,9 @@ set(SRCS
     src/Ferret/Renderer/GraphicsContext.h
     src/Ferret/Renderer/RendererAPI.h
     src/Ferret/Window/Window.h
+    src/Platform/Vulkan/VulkanRendererAPI.h
+    src/Platform/Vulkan/VulkanDebug.h
+    src/Platform/Vulkan/VulkanContext.h
     src/Platform/OpenGL/OpenGLRendererAPI.h
     src/Platform/OpenGL/ImGui/OpenGLGUI.h
     src/Platform/OpenGL/OpenGLGraphicsContext.h
@@ -59,11 +65,12 @@ target_link_libraries(Ferret
     GL
     ImGui
     stb
+    vulkan
 )
 
 target_compile_definitions(Ferret PUBLIC
-    FE_RENDERER_OPENGL
-    GLFW_INCLUDE_NONE
+    FE_RENDERER_VULKAN
+    GLFW_INCLUDE_VULKAN
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL Debug)

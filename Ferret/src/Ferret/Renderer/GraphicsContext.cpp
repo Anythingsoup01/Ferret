@@ -2,6 +2,8 @@
 #include "GraphicsContext.h"
 
 #include "Ferret/Renderer/RendererAPI.h"
+
+#include "Platform/Vulkan/VulkanContext.h"
 #include "Platform/OpenGL/OpenGLGraphicsContext.h"
 
 namespace Ferret {
@@ -13,6 +15,7 @@ namespace Ferret {
         {
             case RendererAPI::API::NONE:    FE_API_ASSERT(false, "NO GRAPHICS API DEFINED!"); return nullptr;
             case RendererAPI::API::OPENGL:  return CreateScope<OpenGLGraphicsContext>(static_cast<GLFWwindow*>(window));
+            case RendererAPI::API::VULKAN:  return CreateScope<VulkanContext>(static_cast<GLFWwindow*>(window));
             default: FE_API_ASSERT(false, "RENDERERAPI NOT SUPPORTED!") return nullptr;
         }
 
