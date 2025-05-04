@@ -13,6 +13,9 @@
 
 #include "Ferret/Window/Window.h"
 
+#include <imgui.h>
+#include <imgui_internal.h>
+
 
 struct GLFWwindow;
 
@@ -48,6 +51,8 @@ namespace Ferret
         float GetTime();
         Window& GetWindow() const { return *m_Window; }
 
+        inline void SetDockspaceFlags(ImGuiDockNodeFlags dockNodeFlags) { m_DockNodeFlags = dockNodeFlags; }
+
         void SubmitToMainThread(const std::function<void()>& function);
 
     private:
@@ -71,6 +76,7 @@ namespace Ferret
         std::vector<std::function<void()>> m_MainThreadQueue;
         std::mutex m_MainThreadQueueMutex;
 
+        ImGuiDockNodeFlags m_DockNodeFlags = ImGuiDockNodeFlags_None;
 
         static Application* s_Instance;
     };
