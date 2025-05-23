@@ -44,7 +44,7 @@ namespace Ferret
         CreateSwapChain();
         CreateImageViews();
 
-        CreateGraphicsPipeline();
+        CreateRenderPass();
     }
 
     void VulkanContext::SwapBuffers()
@@ -280,6 +280,11 @@ namespace Ferret
             if (vkCreateImageView(m_Device, &createInfo, nullptr, &m_SwapChainImageViews[i]) != VK_SUCCESS)
                 FE_API_ASSERT(false, "Failed to create iamge views!");
         }
+    }
+
+    void VulkanContext::CreateRenderPass()
+    {
+
     }
     
     VulkanContext::SwapChainSupportDetails VulkanContext::QuerySwapChainSupport(VkPhysicalDevice device)

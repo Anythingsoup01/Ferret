@@ -29,7 +29,7 @@ namespace Ferret
         void CreateSwapChain();
         void CreateImageViews();
 
-        void CreateGraphicsPipeline();
+        void CreateRenderPass();
 
     private:
 
