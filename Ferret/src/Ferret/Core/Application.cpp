@@ -28,7 +28,6 @@ namespace Ferret
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
         m_GUI = GUI::Create();
-
         Init();
 
     }
@@ -42,6 +41,10 @@ namespace Ferret
     void Application::Init()
     {
         m_GUI->Init();
+		if (!std::filesystem::exisits("imgui.ini") && !specification.DefaultIniLayout.empty())
+		{
+			ImGui::LoadIniSettingsFromDisk(specification.DefaultIniLayout);
+		}
     }
 
     void Application::Shutdown()
