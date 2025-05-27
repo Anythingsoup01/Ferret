@@ -44,7 +44,7 @@ namespace Ferret
         m_GUI->Init();
 		if (!std::filesystem::exists("imgui.ini") && !m_Specification.DefaultIniLayout.empty())
 		{
-			ImGui::LoadIniSettingsFromDisk(m_Specification.DefaultIniLayout);
+			ImGui::LoadIniSettingsFromDisk(m_Specification.DefaultIniLayout.c_str());
 		}
     }
 
