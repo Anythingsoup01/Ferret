@@ -13,6 +13,8 @@
 
 #include "Ferret/Window/Window.h"
 
+#include <imgui.h>
+#include <imgui_internal.h>
 
 struct GLFWwindow;
 
