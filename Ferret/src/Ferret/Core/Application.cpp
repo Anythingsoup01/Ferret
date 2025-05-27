@@ -7,9 +7,10 @@
 #include "Ferret/Renderer/RenderCommand.h"
 
 #include "imgui.h"
-#include "imgui_internal.h"
 
 #include <glm/glm.hpp>
+
+#include <filesystem>
 
 extern bool g_ApplicationRunning;
 
@@ -41,9 +42,9 @@ namespace Ferret
     void Application::Init()
     {
         m_GUI->Init();
-		if (!std::filesystem::exisits("imgui.ini") && !specification.DefaultIniLayout.empty())
+		if (!std::filesystem::exisits("imgui.ini") && !m_Specification.DefaultIniLayout.empty())
 		{
-			ImGui::LoadIniSettingsFromDisk(specification.DefaultIniLayout);
+			ImGui::LoadIniSettingsFromDisk(m_Specification.DefaultIniLayout);
 		}
     }
 
@@ -70,7 +71,7 @@ namespace Ferret
             m_GUI->NewFrame();
 
             static bool dockspaceOpen = true;
-            static ImGuiDockNodeFlags dockspace_flags = m_DockNodeFlags;
+            static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
 
             ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
