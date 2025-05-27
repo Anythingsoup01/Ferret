@@ -24,7 +24,7 @@ namespace Ferret
         uint32_t Width = 1280;
         uint32_t Height = 720;
 
-		std::string DefaulIniLayout = "";
+		std::string DefaultIniLayout = "";
     };
 
     class Application
