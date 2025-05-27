@@ -71,7 +71,7 @@ namespace Ferret
             m_GUI->NewFrame();
 
             static bool dockspaceOpen = true;
-            static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+            static ImGuiDockNodeFlags dockspace_flags = m_DockNodeFlags;
 
             ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
