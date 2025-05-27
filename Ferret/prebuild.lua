@@ -34,8 +34,7 @@ project "Ferret"
 
     defines
     {
-        "FE_RENDERER_VULKAN",
-        "GLFW_INCLUDE_VULKAN"
+        "FE_RENDERER_OPENGL",
     }
 
     filter "configurations:Debug"

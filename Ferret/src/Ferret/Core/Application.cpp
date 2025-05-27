@@ -23,10 +23,11 @@ namespace Ferret
         PlatformDetection::Init();
 
         m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height));
-        //m_Window->SetVSync(true);
+        m_Window->SetVSync(true);
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
-        //m_GUI = GUI::Create();
+        m_GUI = GUI::Create();
+		m_GUI->SetIniFilename(specification.IniFilename);
 
         Init();
 
@@ -40,12 +41,12 @@ namespace Ferret
 
     void Application::Init()
     {
-        //m_GUI->Init();
+        m_GUI->Init();
     }
 
     void Application::Shutdown()
     {
-        //m_GUI->Shutdown();
+        m_GUI->Shutdown();
         g_ApplicationRunning = false;
     }
 
@@ -53,14 +54,14 @@ namespace Ferret
     {
         m_Running = true;
 
-        //ImGuiIO& io = ImGui::GetIO();
+        ImGuiIO& io = ImGui::GetIO();
 
         while (m_Running)
         {
             m_Window->OnUpdate();
             RenderCommand::Clear(glm::vec4(0,0,0,1));
 
-            /*for (auto& layer : m_LayerStack)
+            for (auto& layer : m_LayerStack)
                 layer->OnUpdate(m_TimeStep);
 
             m_GUI->NewFrame();
@@ -115,7 +116,7 @@ namespace Ferret
             ImGui::End();
 
             // Rendering
-            m_GUI->Render();*/
+            m_GUI->Render();
 
             ExecuteMainThreadQueue();
 

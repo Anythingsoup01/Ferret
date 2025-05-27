@@ -23,6 +23,8 @@ namespace Ferret
         std::string Title;
         uint32_t Width = 1280;
         uint32_t Height = 720;
+
+		std::string IniFilename = "";
     };
 
     class Application
