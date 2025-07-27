@@ -64,6 +64,7 @@ target_link_libraries(Ferret
 target_compile_definitions(Ferret PUBLIC
     FE_RENDERER_OPENGL
     GLFW_INCLUDE_NONE
+    FE_USE_WAYLAND
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
