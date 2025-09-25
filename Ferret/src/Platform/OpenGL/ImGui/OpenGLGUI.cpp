@@ -18,9 +18,10 @@ namespace Ferret
         ImGuiIO& io = ImGui::GetIO(); (void)io;
         io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-#ifndef FE_USE_WAYLAND
+
+#       ifndef FE_USE_WAYLAND
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
-#endif
+#       endif
 
         // ImGui Style
         ImGui::StyleColorsDark();
