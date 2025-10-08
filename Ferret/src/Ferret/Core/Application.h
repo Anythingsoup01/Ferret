@@ -26,6 +26,8 @@ namespace Ferret
         uint32_t Width = 1280;
         uint32_t Height = 720;
 
+        bool BorderlessFullscreen = false;
+
 		std::string DefaultIniLayout = "";
     };
 
@@ -45,6 +47,7 @@ namespace Ferret
         void SetMenubarCallback(const std::function<void()>& menubarCallback) { m_MenubarCallback = menubarCallback; }
 
         void PushLayer(Layer* layer);
+        void PopLayer(Layer* layer);
 
         void Close();
 

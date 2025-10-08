@@ -24,7 +24,7 @@ namespace Ferret
         s_Instance = this;
         PlatformDetection::Init();
 
-        m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height));
+        m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height, m_Specification.BorderlessFullscreen));
         m_Window->SetVSync(true);
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
@@ -148,6 +148,11 @@ namespace Ferret
         layer->OnAttach();
     }
 
+    void Application::PopLayer(Layer* layer)
+    {
+        layer->OnDetach();
+        m_LayerStack.PopLayer(layer);
+    }
 
     void Application::Close()
     {
