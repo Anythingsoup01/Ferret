@@ -332,6 +332,7 @@ target_include_directories(Ferret PRIVATE
     "../vendor/glfw/include"
     "../vendor/glad/include"
     "../vendor/spdlog/include"
+    "../vendor/glm"
     "../vendor/imgui"
     "../vendor/stb"
 )

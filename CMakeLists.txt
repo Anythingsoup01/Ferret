@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.28.3)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+project(Ferret LANGUAGES C CXX)
 add_subdirectory(Ferret)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
