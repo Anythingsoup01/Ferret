@@ -50,6 +50,12 @@ Project =
         {
             name = "configurations:Release",
             defines = "FE_RELEASE",
+        },
+        {
+            name = "system:linux",
+            links = {
+                "X11",
+            },
         }
     },
 }

@@ -361,3 +361,8 @@ PUBLIC
     FE_RELEASE
 )
 endif(CMAKE_BUILD_TYPE STREQUAL Release)
+if (UNIX AND NOT APPLE)
+target_link_libraries(Ferret
+    X11
+)
+endif(UNIX AND NOT APPLE)
