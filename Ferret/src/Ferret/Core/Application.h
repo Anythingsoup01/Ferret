@@ -43,7 +43,7 @@ namespace Ferret
 
         void OnEvent(Event& e);
 		
-		inline void SetDockNodeFlags(ImGuiDockNodeFlags dockNodeFlags) { m_DockNodeFlags = dockNodeFlags; }
+		inline void AddDockNodeFlags(ImGuiDockNodeFlags dockNodeFlags) { m_DockNodeFlags |= dockNodeFlags; }
         void SetMenubarCallback(const std::function<void()>& menubarCallback) { m_MenubarCallback = menubarCallback; }
 
         void PushLayer(Layer* layer);
@@ -80,7 +80,6 @@ namespace Ferret
         std::mutex m_MainThreadQueueMutex;
 
 		ImGuiDockNodeFlags m_DockNodeFlags = ImGuiDockNodeFlags_None;
-
 
         static Application* s_Instance;
     };
