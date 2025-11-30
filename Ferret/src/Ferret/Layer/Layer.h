@@ -7,7 +7,7 @@ namespace Ferret
     class Layer
     {
     public:
-        Layer(const std::string& debugName) : m_DebugName(debugName) {}
+        Layer(const std::string& debugName = "debug") : m_DebugName(debugName) {}
         virtual ~Layer() = default;
 
         virtual void OnAttach() = 0;
