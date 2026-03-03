@@ -10,6 +10,8 @@
 
 #include <glm/glm.hpp>
 
+#include <filesystem>
+
 extern bool g_ApplicationRunning;
 
 namespace Ferret
@@ -22,12 +24,11 @@ namespace Ferret
         s_Instance = this;
         PlatformDetection::Init();
 
-        m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height));
+        m_Window = Window::Create(WindowProps(m_Specification.Title, m_Specification.Width, m_Specification.Height, m_Specification.BorderlessFullscreen));
         m_Window->SetVSync(true);
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::OnEvent));
 
         m_GUI = GUI::Create();
-
         Init();
 
     }
@@ -41,6 +42,10 @@ namespace Ferret
     void Application::Init()
     {
         m_GUI->Init();
+		if (!std::filesystem::exists("imgui.ini") && !m_Specification.DefaultIniLayout.empty())
+		{
+			ImGui::LoadIniSettingsFromDisk(m_Specification.DefaultIniLayout.c_str());
+		}
     }
 
     void Application::Shutdown()
@@ -66,7 +71,7 @@ namespace Ferret
             m_GUI->NewFrame();
 
             static bool dockspaceOpen = true;
-            static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+            static ImGuiDockNodeFlags dockspace_flags = m_DockNodeFlags;
 
             ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
@@ -143,6 +148,11 @@ namespace Ferret
         layer->OnAttach();
     }
 
+    void Application::PopLayer(Layer* layer)
+    {
+        layer->OnDetach();
+        m_LayerStack.PopLayer(layer);
+    }
 
     void Application::Close()
     {

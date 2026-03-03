@@ -13,6 +13,8 @@
 
 #include "Ferret/Window/Window.h"
 
+#include <imgui.h>
+#include <imgui_internal.h>
 
 struct GLFWwindow;
 
@@ -23,6 +25,10 @@ namespace Ferret
         std::string Title;
         uint32_t Width = 1280;
         uint32_t Height = 720;
+
+        bool BorderlessFullscreen = false;
+
+		std::string DefaultIniLayout = "";
     };
 
     class Application
@@ -36,10 +42,12 @@ namespace Ferret
         void Run();
 
         void OnEvent(Event& e);
-
+		
+		inline void AddDockNodeFlags(ImGuiDockNodeFlags dockNodeFlags) { m_DockNodeFlags |= dockNodeFlags; }
         void SetMenubarCallback(const std::function<void()>& menubarCallback) { m_MenubarCallback = menubarCallback; }
 
         void PushLayer(Layer* layer);
+        void PopLayer(Layer* layer);
 
         void Close();
 
@@ -71,6 +79,7 @@ namespace Ferret
         std::vector<std::function<void()>> m_MainThreadQueue;
         std::mutex m_MainThreadQueueMutex;
 
+		ImGuiDockNodeFlags m_DockNodeFlags = ImGuiDockNodeFlags_None;
 
         static Application* s_Instance;
     };

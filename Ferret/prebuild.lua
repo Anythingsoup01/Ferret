@@ -1,45 +1,61 @@
-project "Ferret"
-    language "C++"
-    dialect "17"
-    kind "StaticLib"
+Project =
+{
+    name = "Ferret",
+    language = "C++",
+    dialect = "17",
+    kind = "StaticLib",
 
-    pch "src/fepch.h"
+    pch = "src/fepch.h",
 
-    files
+    files =
     {
         "src/*.cpp",
         "src/*.h",
-    }
+        "../vendor/stb/stb_image.cpp",
+        "../vendor/stb/stb_image.h",
+        "../vendor/glm/glm/*.hpp"
+    },
 
-    includedirs
+    includedirs =
     {
         "src",
-        "$(WORKSPACEDIR)/vendor/glfw/include",
-        "$(WORKSPACEDIR)/vendor/glad/include",
-        "$(WORKSPACEDIR)/vendor/spdlog/include",
-        "$(WORKSPACEDIR)/vendor/glm",
-        "$(WORKSPACEDIR)/vendor/imgui",
-        "$(WORKSPACEDIR)/vendor/stb",
-    }
+        "../vendor/glfw/include",
+        "../vendor/glad/include",
+        "../vendor/spdlog/include",
+        "../vendor/glm",
+        "../vendor/imgui",
+        "../vendor/stb",
+    },
 
-    links
+    links =
     {
         "glfw",
         "Glad",
         "GL",
         "ImGui",
-        "stb"
-    }
+        "vulkan",
+    },
 
-    defines
+    defines =
     {
         "FE_RENDERER_OPENGL",
-        "GLFW_INCLUDE_NONE"
-    }
+    },
 
-    filter "configurations:Debug"
-        defines "FE_DEBUG"
-
-    filter "configurations:Release"
-        defines "FE_RELEASE"
-
+    filters =
+    {
+        {
+            name = "configurations:Debug",
+            defines = "FE_DEBUG"
+        },
+        {
+            name = "configurations:Release",
+            defines = "FE_RELEASE",
+        },
+        {
+            name = "system:linux",
+            links = {
+                "X11",
+            },
+        }
+    },
+}

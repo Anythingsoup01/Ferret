@@ -10,8 +10,10 @@ namespace Ferret
         uint32_t Width;
         uint32_t Height;
 
-        WindowProps(const std::string title = "CatEngine", uint32_t width = 1600, uint32_t height = 900)
-        :Title(title), Width(width), Height(height) {}
+        bool BorderlessFullscreen;
+
+        WindowProps(const std::string title = "CatEngine", uint32_t width = 1600, uint32_t height = 900, bool borderlessFullscreen = false)
+        :Title(title), Width(width), Height(height), BorderlessFullscreen(borderlessFullscreen) {}
     };
 
     class Window {

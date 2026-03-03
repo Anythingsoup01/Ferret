@@ -61,7 +61,24 @@ namespace Ferret
             FE_API_ASSERT(success, "Could not load GLFW!");
         }
 
-        m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+
+        if (props.BorderlessFullscreen)
+        {
+            GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+            const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+            glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+            glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+            glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+            glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+            m_Window = glfwCreateWindow(mode->width, mode->height, m_Data.Title.c_str(), monitor, nullptr);
+        }
+        else
+        {
+            m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+        }
+
 
         m_Context = GraphicsContext::Create(m_Window);
         m_Context->Init();
