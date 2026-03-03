@@ -1,4 +1,6 @@
+# Directories
 build/
-*.build
 .cache/
 
+# Binaries
+prebuild
