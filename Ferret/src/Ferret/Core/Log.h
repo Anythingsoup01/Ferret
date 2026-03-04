@@ -13,8 +13,8 @@ namespace Ferret
         static inline Ref<spdlog::logger>& GetAPILogger() { return s_APILogger; }
         static inline Ref<spdlog::logger>& GetCLILogger() { return s_CLILogger; }
     private:
-        static Ref<spdlog::logger> s_APILogger;
-        static Ref<spdlog::logger> s_CLILogger;
+        static inline Ref<spdlog::logger> s_APILogger;
+        static inline Ref<spdlog::logger> s_CLILogger;
     };
 }
 

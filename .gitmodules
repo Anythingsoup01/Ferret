@@ -13,3 +13,9 @@
 [submodule "vendor/spdlog"]
 	path = vendor/spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "vendor/prebuild"]
+	path = vendor/prebuild
+	url = https://github.com/anythingsoup01/prebuild
+[submodule "vendor/yaml-cpp"]
+	path = vendor/yaml-cpp
+	url = https://github.com/anythingsoup01/yaml-cpp

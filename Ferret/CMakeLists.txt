@@ -13,6 +13,7 @@ set(SRCS
     "src/Ferret/ImGui/GUI.cpp"
     "src/Ferret/Window/Window.cpp"
     "src/Ferret/Layer/LayerStack.cpp"
+    "src/Ferret/Serializer/Serializer.cpp"
     "src/Ferret/Core/Log.cpp"
     "src/Ferret/Core/Application.cpp"
     "src/Ferret/Core/PlatformDetection.cpp"
@@ -34,6 +35,7 @@ set(SRCS
     "src/Ferret/Window/Window.h"
     "src/Ferret/Layer/LayerStack.h"
     "src/Ferret/Layer/Layer.h"
+    "src/Ferret/Serializer/Serializer.h"
     "src/Ferret/Core/Entrypoint.h"
     "src/Ferret/Core/Core.h"
     "src/Ferret/Core/Log.h"
@@ -335,6 +337,7 @@ target_include_directories(Ferret PRIVATE
     "../vendor/glm"
     "../vendor/imgui"
     "../vendor/stb"
+    "../vendor/yaml-cpp/include/"
 )
 
 target_link_libraries(Ferret
@@ -343,6 +346,7 @@ target_link_libraries(Ferret
     GL
     ImGui
     vulkan
+    yaml-cpp
 )
 
 target_compile_definitions(Ferret PUBLIC

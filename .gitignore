@@ -1,4 +1,12 @@
+# Directories
 build/
-*.build
 .cache/
 
+# Binaries
+prebuild
+
+# File Types
+*.ini
+
+# Files
+.save_path

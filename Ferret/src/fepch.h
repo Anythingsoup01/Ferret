@@ -13,6 +13,10 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
+#include <filesystem>
+#include <list>
+#include <optional>
+#include <fstream>
 
 #if defined(FE_PLATFORM_WINDOWS)
 #   include <Windows.h>

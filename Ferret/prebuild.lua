@@ -1,61 +1,63 @@
 Project =
 {
-    name = "Ferret",
-    language = "C++",
-    dialect = "17",
-    kind = "StaticLib",
+  name = "Ferret",
+  language = "C++",
+  dialect = "17",
+  kind = "StaticLib",
 
-    pch = "src/fepch.h",
+  pch = "src/fepch.h",
 
-    files =
+  files =
+  {
+    "src/*.cpp",
+    "src/*.h",
+    "../vendor/stb/stb_image.cpp",
+    "../vendor/stb/stb_image.h",
+    "../vendor/glm/glm/*.hpp"
+  },
+
+  includedirs =
     {
-        "src/*.cpp",
-        "src/*.h",
-        "../vendor/stb/stb_image.cpp",
-        "../vendor/stb/stb_image.h",
-        "../vendor/glm/glm/*.hpp"
+      "src",
+      "../vendor/glfw/include",
+      "../vendor/glad/include",
+      "../vendor/spdlog/include",
+      "../vendor/glm",
+      "../vendor/imgui",
+      "../vendor/stb",
+      "../vendor/yaml-cpp/include/"
     },
 
-    includedirs =
+  links =
     {
-        "src",
-        "../vendor/glfw/include",
-        "../vendor/glad/include",
-        "../vendor/spdlog/include",
-        "../vendor/glm",
-        "../vendor/imgui",
-        "../vendor/stb",
+      "glfw",
+      "Glad",
+      "GL",
+      "ImGui",
+      "vulkan",
+      "yaml-cpp"
     },
 
-    links =
+  defines =
     {
-        "glfw",
-        "Glad",
-        "GL",
-        "ImGui",
-        "vulkan",
+      "FE_RENDERER_OPENGL",
     },
 
-    defines =
+  filters =
     {
-        "FE_RENDERER_OPENGL",
-    },
-
-    filters =
-    {
-        {
-            name = "configurations:Debug",
-            defines = "FE_DEBUG"
+      {
+        name = "configurations:Debug",
+        defines = "FE_DEBUG"
+      },
+      {
+        name = "configurations:Release",
+        defines = "FE_RELEASE",
+      },
+      {
+        name = "system:linux",
+        links = {
+          "X11",
         },
-        {
-            name = "configurations:Release",
-            defines = "FE_RELEASE",
-        },
-        {
-            name = "system:linux",
-            links = {
-                "X11",
-            },
-        }
+      }
     },
 }
