@@ -4,3 +4,9 @@ build/
 
 # Binaries
 prebuild
+
+# File Types
+*.ini
+
+# Files
+.save_path

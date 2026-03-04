@@ -11,7 +11,13 @@ Project = {
   },
 
   includedirs = {
-    "src"
+    "src",
+    "${WORKSPACEDIR}Ferret/src",
+    "${WORKSPACEDIR}vendor/glfw/include",
+    "${WORKSPACEDIR}vendor/glad/include",
+    "${WORKSPACEDIR}vendor/spdlog/include",
+    "${WORKSPACEDIR}vendor/glm",
+    "${WORKSPACEDIR}vendor/imgui",
   },
 
   links = {
